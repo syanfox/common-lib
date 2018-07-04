@@ -11,6 +11,27 @@ import com.guo.common.R;
 
 /**
  * 通用确认对话框
+ *
+ *
+ * new CommomDialog(mContext, R.style.dialog, "您确定删除此信息？", new CommomDialog.OnCloseListener() {
+@Override
+public void onClick(boolean confirm) {
+if(confirm){
+Toast.makeText(this,"点击确定", Toast.LENGTH_SHORT).show();
+dialog.dismiss();
+}
+
+}
+})
+ .setTitle("提示").show();
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  */
 public class CommomDialog extends Dialog {
 
