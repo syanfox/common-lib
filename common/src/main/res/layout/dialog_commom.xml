@@ -14,7 +14,7 @@
         android:layout_marginTop="12dp"
         android:text="提示"
         android:textSize="16sp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/color_000000"/>
 
     <TextView
         android:id="@+id/content"
@@ -29,11 +29,11 @@
         android:layout_marginBottom="30dp"
         android:text="签到成功，获得200积分"
         android:textSize="12sp"
-        android:textColor="@color/font_common_1"/>
+        android:textColor="@color/color_585858"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/commom_background"/>
+        android:background="@color/color_dcdcdc"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,14 +47,14 @@
             android:background="@drawable/bg_dialog_left_white"
             android:layout_weight="1.0"
             android:gravity="center"
-            android:text="@string/cancel"
+            android:text="取消"
             android:textSize="12sp"
-            android:textColor="@color/font_common_2"/>
+            android:textColor="@color/color_585858"/>
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/commom_background"/>
+            android:background="@color/color_dcdcdc"/>
 
         <TextView
             android:id="@+id/submit"
@@ -63,9 +63,9 @@
             android:background="@drawable/bg_dialog_right_white"
             android:gravity="center"
             android:layout_weight="1.0"
-            android:text="@string/submit"
+            android:text="确定"
             android:textSize="12sp"
-            android:textColor="@color/font_blue"/>
+            android:textColor="@color/color_585858"/>
 
     </LinearLayout>
 
