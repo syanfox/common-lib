@@ -1,0 +1,39 @@
+<resources>
+
+    <!-- Declare custom theme attributes that allow changing which styles are
+         used for button bars depending on the API level.
+         ?android:attr/buttonBarStyle is new as of API 11 so this is
+         necessary to support previous API levels. -->
+
+    <declare-styleable name="ButtonBarContainerTheme">
+        <attr name="metaButtonBarStyle" format="reference"/>
+        <attr name="metaButtonBarButtonStyle" format="reference"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="CustomHeader">
+        <attr name="src_right" format="reference"/>
+        <attr name="src_left" format="reference"/>
+        <attr name="src_middle" format="reference"/>
+        <attr name="backgroundColor" format="reference"/>
+        <attr name="text_right" format="string"/>
+        <attr name="text_title" format="string"/>
+        <attr name="text_left" format="string"/>
+        <attr name="left" format="integer">
+            <enum name="left_no" value="0"/>
+            <enum name="left_img" value="1"/>
+            <enum name="left_tv" value="2"/>
+        </attr>
+        <attr name="middle" format="integer">
+            <enum name="middle_visible" value="1"/>
+            <enum name="middle_gone" value="0"/>
+        </attr>
+        <attr name="right" format="integer">
+            <enum name="right_no" value="0"/>
+            <enum name="right_img" value="1"/>
+            <enum name="right_tv" value="2"/>
+        </attr>
+    </declare-styleable>
+
+
+</resources>

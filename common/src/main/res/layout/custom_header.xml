@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_0c93f1">
+
+
+    <FrameLayout
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/header_img_left"
+            style="@style/headIconCommonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:src="@drawable/selector_head_return"/>
+
+        <TextView
+            android:id="@+id/header_tv_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:clickable="true"
+            android:text="取消"
+            android:textColor="@color/selector_header_text"
+            android:textSize="@dimen/font_size_20"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+
+    <TextView
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/header_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="标题"
+        android:textColor="@color/color_ffffff"
+        android:textSize="@dimen/font_size_20"/>
+
+    <ImageView
+        android:layout_toLeftOf="@+id/header_fl_right"
+        android:id="@+id/header_img_middle"
+        style="@style/headIconCommonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:clickable="true"
+        android:visibility="visible"
+        android:src="@drawable/selector_head_return"/>
+
+    <FrameLayout
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/header_fl_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/header_img_right"
+            style="@style/headIconCommonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:src="@drawable/selector_head_return"/>
+
+        <TextView
+            android:layout_gravity="center"
+            android:id="@+id/header_tv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:text="更多"
+            android:textColor="@color/selector_header_text"
+            android:textSize="@dimen/font_size_18"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+</RelativeLayout>
