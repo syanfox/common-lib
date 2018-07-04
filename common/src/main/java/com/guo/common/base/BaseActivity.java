@@ -64,10 +64,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         initEvent();
         mContext = this;
         ActivityStackManager.getActivityStackManager().pushActivity(this);
-        screenManager = ScreenManager.getInstance();
-        screenManager.setStatusBar(isStatusBar, this);
-        screenManager.setScreenRoate(isScreenRoate, this);
-        screenManager.setFullScreen(isFullScreen, this);
+        //screenManager = ScreenManager.getInstance();
+        //screenManager.setStatusBar(isStatusBar, this);
+        //screenManager.setScreenRoate(isScreenRoate, this);
+        //screenManager.setFullScreen(isFullScreen, this);
     }
 
     /**
