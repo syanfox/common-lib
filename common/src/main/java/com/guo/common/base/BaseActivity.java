@@ -19,15 +19,15 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 是否沉浸状态栏
      **/
-    private boolean isStatusBar = false;
+    protected boolean isStatusBar = false;
     /**
      * 是否允许全屏
      **/
-    private boolean isFullScreen = false;
+    protected boolean isFullScreen = false;
     /**
      * 是否禁止旋转屏幕
      **/
-    private boolean isScreenRoate = false;
+    protected boolean isScreenRoate = false;
 
     /**
      * context
