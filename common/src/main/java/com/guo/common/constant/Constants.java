@@ -27,4 +27,16 @@ public class Constants {
         public final static String KEY_DOWNLOADINFO="key_downloadinfo";
     }
 
+
+    /**
+     * sp
+     */
+    public final static class SP_KEY{
+
+        /**
+         * token
+         */
+        public final static String KEY_TOKEN="key_sp_token";
+    }
+
 }

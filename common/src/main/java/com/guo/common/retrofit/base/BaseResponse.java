@@ -4,7 +4,9 @@ import java.io.Serializable;
 
 
 public class BaseResponse<T> implements Serializable {
-    private static final int SUCCESS = 200;
+
+    //成功
+    private static final int SUCCESS = 0;
 
     /**
      * <p>
@@ -53,7 +55,7 @@ public class BaseResponse<T> implements Serializable {
 
     public boolean isSuccess(){
 
-        if(code==200){
+        if(code==SUCCESS){
             return true;
         }
         else{

@@ -2,7 +2,9 @@ package com.guo.common.retrofit;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.guo.common.util.LogUtils;
 
 import org.apache.http.conn.ConnectTimeoutException;
 
@@ -23,6 +25,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitUtils {
 
+
+    private static String TAG=RetrofitUtils.class.getSimpleName();
 
     /**
      * 连接超时时间
@@ -66,13 +70,14 @@ public class RetrofitUtils {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                Log.i("xxx", "log: "+message);
+                LogUtils.i(TAG, message);
             }
         });
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient httpClient = new OkHttpClient.Builder()
                 .addInterceptor(httpLoggingInterceptor)
+                .addInterceptor(new TokenInterceptor())
                 .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
