@@ -4,10 +4,7 @@ package com.guo.common.constant;
 public class Constants {
 
 
-    /**
-     * 是否是调试模式
-     */
-    public static boolean ISDEBUG = true;
+
     /**
      * 人民币符号
      **/
@@ -15,7 +12,7 @@ public class Constants {
 
 
     //apk 下载action
-    public final static String APKDOWNLOAD_ACTION="apk_download";
+    public final static String APKDOWNLOAD_ACTION="com.base.apk_download";
 
 
     /**

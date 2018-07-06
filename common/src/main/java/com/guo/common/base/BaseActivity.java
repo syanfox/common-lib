@@ -3,10 +3,23 @@ package com.guo.common.base;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.guo.common.R;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 /**
  *
@@ -33,15 +46,26 @@ public abstract class BaseActivity extends AppCompatActivity {
      * context
      **/
     protected Context mContext;
+
+
+    protected RxPermissions rxPermissions;
+
+
+
+
     /**
-     * 是否输出日志信息
-     **/
-    private boolean isDebug;
+     * 设置布局
+     *
+     * @return
+     */
+    protected abstract int setLayoutView();
+
+
 
     /**
      * 初始化界面
      **/
-    protected abstract void initView();
+    protected abstract void initView(View view);
 
     /**
      * 初始化数据
@@ -55,14 +79,24 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private ScreenManager screenManager;
 
+    private View mContextView = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "--->onCreate()");
-        initView();
+
+        Bundle bundle = getIntent().getExtras();
+        mContextView = LayoutInflater.from(this).inflate(setLayoutView(), null);
+        setContentView(mContextView);
+        rxPermissions = new RxPermissions(this);
+        initView(mContextView);
         initData();
         initEvent();
         mContext = this;
+        if(isStatusBar){
+            steepStatusBar();
+        }
         ActivityStackManager.getActivityStackManager().pushActivity(this);
         //screenManager = ScreenManager.getInstance();
         //screenManager.setStatusBar(isStatusBar, this);
@@ -77,8 +111,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param activity
      * @param cls
      */
-    public static void skipAnotherActivity(Activity activity,
-                                           Class<? extends Activity> cls) {
+    public  void skipAnotherActivity(Activity activity, Class<? extends Activity> cls) {
         Intent intent = new Intent(activity, cls);
         activity.startActivity(intent);
         activity.finish();
@@ -91,14 +124,27 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param activity
      * @param cls
      */
-    public static void skipAnotherActivity(Activity activity,
-                                           Class<? extends Activity> cls,Bundle bundle) {
+    public  void skipAnotherActivity(Activity activity, Class<? extends Activity> cls,Bundle bundle) {
         Intent intent = new Intent(activity, cls);
         if (bundle != null) {
             intent.putExtras(bundle);
         }
         activity.startActivity(intent);
         activity.finish();
+    }
+
+
+
+    /**
+     * 沉浸状态栏
+     */
+    private void steepStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            // 透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            // 透明导航栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
     }
 
     /**
@@ -168,6 +214,29 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         Log.i(TAG, "--->onDestroy()");
         ActivityStackManager.getActivityStackManager().popActivity(this);
+    }
+
+
+
+    protected View getEmptyView(RecyclerView recyclerView) {
+        return getEmptyView(recyclerView, "");
+    }
+
+    protected View getEmptyView(RecyclerView recyclerView, String msg) {
+        return getEmptyView(recyclerView, msg, -1);
+    }
+
+    protected View getEmptyView(RecyclerView recyclerView, String msg, @DrawableRes int imgRes) {
+        View notDataView = getLayoutInflater().inflate(R.layout.common_empty_view, (ViewGroup) recyclerView.getParent(), false);
+        TextView tvNoRecord = (TextView) notDataView.findViewById(R.id.emptyview_text);
+        ImageView imgNoRecord = (ImageView) notDataView.findViewById(R.id.emptyview_imageview);
+        if (!TextUtils.isEmpty(msg)) {
+            tvNoRecord.setText(msg);
+        }
+        if (imgRes != -1) {
+            imgNoRecord.setImageResource(imgRes);
+        }
+        return notDataView;
     }
 
 }
