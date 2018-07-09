@@ -1542,7 +1542,7 @@ public final class ImageUtils {
                 .error(defaultResourcesId)
                 .placeholder(defaultResourcesId);
         Glide.with(context)
-                .load(defaultResourcesId == -1 ? R.mipmap.ic_launcher : picUrl)
+                .load(defaultResourcesId == -1 ? R.mipmap.image_default : picUrl)
                 .apply(requestOptions)
                 .into(imageView);
     }
