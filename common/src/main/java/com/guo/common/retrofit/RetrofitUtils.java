@@ -1,8 +1,6 @@
 package com.guo.common.retrofit;
 
-import android.util.Log;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.guo.common.util.LogUtils;
 
@@ -14,6 +12,7 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -96,6 +95,14 @@ public class RetrofitUtils {
         Retrofit retrofit = getRetrofit(url);
         return retrofit.create(cl);
     }
+
+
+    /**
+     * 上传头像
+     */
+    /*public  Call<Result<String>> uploadImage(List<MultipartBody.Part> partList) {
+        return ApiUtil.getApiService().uploadMemberIcon(partList);
+    }*/
 
 
     /**

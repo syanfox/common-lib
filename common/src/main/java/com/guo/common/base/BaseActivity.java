@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.guo.common.R;
+import com.guo.common.customcontrol.ProgressDialogFragment;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 /**
@@ -81,6 +82,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private View mContextView = null;
 
+    private ProgressDialogFragment progressDialogFragment;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,7 +117,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     public  void skipAnotherActivity(Activity activity, Class<? extends Activity> cls) {
         Intent intent = new Intent(activity, cls);
         activity.startActivity(intent);
-        activity.finish();
     }
 
     /**
@@ -130,7 +132,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             intent.putExtras(bundle);
         }
         activity.startActivity(intent);
-        activity.finish();
     }
 
 
@@ -238,5 +239,24 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         return notDataView;
     }
+
+
+    public void showLoading() {
+        if (progressDialogFragment == null) {
+            progressDialogFragment = ProgressDialogFragment.newInstance(0);
+        }
+        if (progressDialogFragment.isAdded()) {
+            progressDialogFragment.dismiss();
+        }
+        progressDialogFragment.show(getSupportFragmentManager(), null);
+
+    }
+
+    public void hideLoading() {
+        if (progressDialogFragment != null) {
+            progressDialogFragment.dismiss();
+        }
+    }
+
 
 }
