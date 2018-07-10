@@ -12,6 +12,7 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -66,28 +67,30 @@ public class RetrofitUtils {
 
 
     public static synchronized Retrofit getRetrofit(String url){
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-                LogUtils.i(TAG, message);
-            }
-        });
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient httpClient = new OkHttpClient.Builder()
-                .addInterceptor(httpLoggingInterceptor)
-                .addInterceptor(new TokenInterceptor())
-                .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
-                .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
-                .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
-                .build();
-
         if(retrofit == null){
-            retrofit = new Retrofit.Builder().baseUrl(url).client(httpClient).addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+                @Override
+                public void log(String message) {
+                    LogUtils.i(TAG, message);
+                }
+            });
+            httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+            OkHttpClient httpClient = RetrofitUrlManager.getInstance().with(new OkHttpClient.Builder())
+                    .addInterceptor(httpLoggingInterceptor)
+                    .addInterceptor(new TokenInterceptor())
+                    .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+                    .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+                    .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
                     .build();
 
+
+                retrofit = new Retrofit.Builder().client(httpClient).addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                        .build();
+
         }
+
         return retrofit;
     }
 
@@ -98,11 +101,17 @@ public class RetrofitUtils {
 
 
     /**
-     * 上传头像
+     * 设置全局url
+     * @param globalBaseUrl
      */
-    /*public  Call<Result<String>> uploadImage(List<MultipartBody.Part> partList) {
-        return ApiUtil.getApiService().uploadMemberIcon(partList);
-    }*/
+    public void setGlobalBaseUrl(String globalBaseUrl){
+        RetrofitUrlManager.getInstance().setGlobalDomain(globalBaseUrl);
+    }
+
+
+    public void setServerUrl(String domainName,String url){
+        RetrofitUrlManager.getInstance().putDomain(domainName, url);
+    }
 
 
     /**

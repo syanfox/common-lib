@@ -47,6 +47,7 @@ dependencies {
 
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     //implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    implementation 'me.jessyan:retrofit-url-manager:1.4.0'
 
     implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
 

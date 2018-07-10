@@ -17,7 +17,7 @@ public abstract class RetrofitCallback<T extends BaseResponse> implements Callba
     public void onResponse(Call<T> call, Response<T> response) {
 
         LogUtils.json("RetrofitCallback-->请求路径", new Gson().toJson(response.raw().request().url().url().toString()));
-        LogUtils.json("RetrofitCallback-->请求参数", new Gson().toJson(response.raw().request().body()));
+        //LogUtils.json("RetrofitCallback-->请求参数", new Gson().toJson(response.raw().request().body()));
         LogUtils.json("RetrofitCallback-->返回数据", new Gson().toJson(response.body()));
 
         if (response.raw().code() == 200) {
