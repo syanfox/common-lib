@@ -1,6 +1,8 @@
 package com.guo.common.retrofit;
 
 
+import android.text.TextUtils;
+
 import com.google.gson.JsonSyntaxException;
 import com.guo.common.util.LogUtils;
 
@@ -46,6 +48,8 @@ public class RetrofitUtils {
     public static final boolean SHOW_LOG = true;
 
 
+    private static String baseUrl;
+
     private static RetrofitUtils retrofitUtils;
     private static Retrofit retrofit;
     public RetrofitUtils() {
@@ -66,7 +70,7 @@ public class RetrofitUtils {
     }
 
 
-    public static synchronized Retrofit getRetrofit(String url){
+    public static synchronized Retrofit getRetrofit(){
         if(retrofit == null){
             HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
                 @Override
@@ -85,7 +89,7 @@ public class RetrofitUtils {
                     .build();
 
 
-                retrofit = new Retrofit.Builder().client(httpClient).addConverterFactory(GsonConverterFactory.create())
+                retrofit = new Retrofit.Builder().baseUrl(baseUrl).client(httpClient).addConverterFactory(GsonConverterFactory.create())
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .build();
 
@@ -94,8 +98,12 @@ public class RetrofitUtils {
         return retrofit;
     }
 
-    public <T>T getApiService(String url,Class<T> cl){
-        Retrofit retrofit = getRetrofit(url);
+    public <T>T getApiService(Class<T> cl){
+        if(TextUtils.isEmpty(baseUrl)){
+            throw  new RuntimeException("baseUrl uninitialized ");
+
+        }
+        Retrofit retrofit = getRetrofit();
         return retrofit.create(cl);
     }
 
@@ -105,6 +113,7 @@ public class RetrofitUtils {
      * @param globalBaseUrl
      */
     public void setGlobalBaseUrl(String globalBaseUrl){
+        baseUrl=globalBaseUrl;
         RetrofitUrlManager.getInstance().setGlobalDomain(globalBaseUrl);
     }
 
