@@ -1,6 +1,8 @@
 package com.guo.common.retrofit;
 
 
+import com.guo.common.retrofit.base.BaseResponse;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -14,7 +16,8 @@ public abstract class RetrofitCallback<T> implements Callback<T> {
         if (response.isSuccessful()) {
             onSuccess(response.body());
         } else {
-            onFail(response.body());
+            BaseResponse baseResponse=(BaseResponse) response.body();
+            onFail(baseResponse);
         }
 
       /*  if (response.raw().code() == 200) {
@@ -35,7 +38,7 @@ public abstract class RetrofitCallback<T> implements Callback<T> {
 
     public abstract void onSuccess(T response);
 
-    public abstract void onFail(T failResponse);
+    public abstract void onFail(BaseResponse baseResponse);
 
     public abstract void onError(String errorMessage);
 
