@@ -9,13 +9,13 @@ import com.guo.common.util.LogUtils;
 import org.apache.http.conn.ConnectTimeoutException;
 
 import java.net.ConnectException;
+import java.net.HttpRetryException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -141,7 +141,10 @@ public class RetrofitUtils {
             message = "连接到服务器超时，请检查您的服务器或网络设置！";
         } else if (t instanceof NumberFormatException) {
             message = "数据格式解析异常！";
-        } else if (t instanceof JsonSyntaxException) {
+        }else if(t instanceof HttpRetryException){
+            message="服务器拒绝请求";
+        }
+        else if (t instanceof JsonSyntaxException) {
             message = "数据解析异常！";
         } else if (t instanceof SocketException) {
             message = "连接服务器失败！";
