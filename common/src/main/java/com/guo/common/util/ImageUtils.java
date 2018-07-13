@@ -29,13 +29,19 @@ import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.support.annotation.FloatRange;
 import android.support.annotation.IntRange;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.guo.common.R;
 
 
@@ -61,6 +67,8 @@ import java.lang.ref.WeakReference;
  * </pre>
  */
 public final class ImageUtils {
+
+    public final static String TAG=ImageUtils.class.getSimpleName();
 
     private ImageUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -1542,8 +1550,20 @@ public final class ImageUtils {
                 .error(defaultResourcesId)
                 .placeholder(defaultResourcesId);
         Glide.with(context)
-                .load(defaultResourcesId == -1 ? R.mipmap.image_default : picUrl)
+                .load(picUrl)
                 .apply(requestOptions)
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        LogUtils.d(TAG,"error info:"+e.getMessage());
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        return false;
+                    }
+                })
                 .into(imageView);
     }
 

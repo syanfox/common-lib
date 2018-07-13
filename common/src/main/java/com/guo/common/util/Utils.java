@@ -35,9 +35,9 @@ public final class Utils {
         Utils.context = context.getApplicationContext();
     }
 
-    public static void inti(@NonNull final Context context, String log_path){
+    public static void initAndLogPath(@NonNull final Context context, String log_path){
         Utils.context = context.getApplicationContext();
-        LOG_PATH= FileUtils.getSdcardPath(context)+"/"+log_path;
+        LOG_PATH= FileUtils.getSdcardPath(Utils.context)+"/"+log_path;
         APP_PATH=log_path;
     }
 
