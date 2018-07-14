@@ -86,6 +86,7 @@ public class RetrofitUtils {
                     .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
                     .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
                     .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
+                    .retryOnConnectionFailure(false)
                     .build();
 
 
